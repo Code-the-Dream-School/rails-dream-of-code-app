@@ -1,0 +1,43 @@
+ task 1: 
+class_title = CodingClass.find_by(title: "Intro to Programming") 
+
+trimester = Trimester.find_by(term: "Spring", year: "2025")
+
+course = Course.find_by(trimester_id: trimester, coding_class_id: class_title)
+
+student_enrollment = Enrollment.where(course_id: course).limit(2)
+
+student = student_enrollment.map(&:student_id)
+
+students = Student.where(id: student)
+
+students.each do |x|
+    puts "#{x.id}, #{x.email}"
+end
+
+Output: 
+41, issac@ebert.test
+42, arturo.gerhold@hyatt.test
+
+task 2: 
+class_title = CodingClass.find_by(title: "Intro to Programming")
+
+trimester = Trimester.find_by(term: "Spring", year: "2025")
+
+no_grade = Enrollment.where(final_grade: nil)
+
+mentors = MentorEnrollmentAssignment.where(enrollment_id: no_grade)
+
+mentor = mentors.map(&:mentor_id)
+
+mentor_email = Mentor.where(id: mentor).limit(2)
+
+mentor_email.each do |x|
+    puts "#{x.id}, #{x.email}"
+end
+
+Output: 
+1, sherlene@nolan.test
+2, walton@marks-hammes.test
+
+
