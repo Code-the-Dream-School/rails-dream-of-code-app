@@ -1,0 +1,43 @@
+# Task 1: Collect emails for students in the current Intro course
+
+    class_title_id = CodingClass.find_by(title: "Intro to Programming") 
+
+    term_id = Trimester.find_by(term: "Spring", year: "2025")
+
+    course = Course.find_by(trimester_id: term_id, coding_class_id: class_title_id)
+
+    student_enrollment_current = Enrollment.where(course_id: course).limit(2)
+
+    current_student_id = student_enrollment_current.map(&:student_id)
+
+    enrolled_students = Student.where(id: current_student_id)
+
+    enrolled_students.each do |student|
+        puts "#{student.id}, #{student.email}"
+    end
+
+Output: 
+41, elijah_toy@beer-mcclure.example
+42, jean@bergstrom.test
+
+# Task 2: Email all mentors who have not assigned a final grade
+
+    class_title_id = CodingClass.find_by(title: "Intro to Programming") 
+
+    term_id = Trimester.find_by(term: "Spring", year: "2025")
+
+    course = Course.find_by(trimester_id: term_id, coding_class_id: class_title_id)
+
+    student_id_nogrades = Enrollment.where(course_id: course, final_grade: nil).map(&:id)
+
+    mentors_id_forgrading = MentorEnrollmentAssignment.where(id: student_id_nogrades).map(&:mentor_id)
+    
+    mentors_info = Mentor.where(id: mentors_id_forgrading).limit(2)
+
+    mentors_info.each do |mentor|
+        puts "#{mentor.id}, #{mentor.email}"
+    end
+
+Output:
+25, claudio_lang@hagenes.example
+26, amos.lynch@greenholt.test
