@@ -1,0 +1,26 @@
+<student id>, <student email>
+
+    41, "deloras@hagenes.test"
+    42, "see@casper.test"
+    
+    # Enrollment.joins(:student).select("students.email, students.first_name,enrollments.student_id")
+    # .where(enrollments:{course_id:5}).limit(2)
+    # .pluck("students.email","student_id")
+
+    students = Enrollment.joins(course: [:trimester, :coding_class])
+    .joins(:student)
+    .where(coding_classes: { title: 'Intro to Programming' })
+    .where(trimesters: { term: 'Spring', year: 2025 })
+    .limit(2) .pluck('students.id', 'students.email')
+
+    <mentor id>, <mentor email>
+        26       merrill@walker-yost.example
+        25       parker@prosacco-glover.test
+
+        select * from enrollments inner join mentor_enrollment_assignments on enrollments.id = enrollment_id
+        inner join mentors on mentors.id = mentor_id where final_grade is null
+
+        Enrollment.joins(:mentor_enrollment_assignments,:course)
+        .where(final_grade:nil).where(enrollments:{course_id:5}).limit(2)
+    
+        ###
