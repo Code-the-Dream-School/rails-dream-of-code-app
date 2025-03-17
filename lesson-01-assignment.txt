@@ -1,0 +1,44 @@
+#Question 1
+
+# Find the coding class
+coding_class = CodingClass.find_by(title: "Intro to Programming")
+
+# Find the course linked to this coding class
+course = Course.find_by(coding_class_id: coding_class.id)
+
+# Find enrollments for this course
+enrollments = Enrollment.where(course_id: course.id)
+
+# Get student IDs
+student_ids = enrollments.pluck(:student_id)
+
+# Get two students and print their details
+students = Student.where(id: student_ids).limit(2)
+students.each do |student|
+  puts "#{student.id}, #{student.email}"
+end
+
+#Question 2
+# Find the trimester for Spring 2025
+trimester = Trimester.find_by(year: "2025", term: "Spring")
+
+# Find the coding class for Intro to Programming
+coding_class = CodingClass.find_by(title: "Intro to Programming")
+
+# Find the course in Spring 2025
+course = Course.find_by(coding_class_id: coding_class.id, trimester_id: trimester.id)
+
+# Find enrollments without a final grade
+enrollments = Enrollment.where(course_id: course.id, final_grade: [nil, ""])
+enrollment_ids = enrollments.pluck(:id)
+
+# Find mentors assigned to these enrollments
+mentor_ids = MentorEnrollmentAssignment.where(enrollment_id: enrollment_ids).pluck(:mentor_id)
+
+# Get two mentors and print their details
+mentors = Mentor.where(id: mentor_ids).limit(2)
+mentors.each do |mentor|
+  puts "#{mentor.id}, #{mentor.email}"
+end
+
+
