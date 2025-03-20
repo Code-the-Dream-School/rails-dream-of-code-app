@@ -1,0 +1,12 @@
+need_enrollment = Enrollment.where(course_id: 5)
+need_enrollment.each do |enrollment|
+  puts enrollment.student.email
+end
+need_enrollment = Enrollment.where(course_id: 5, final_grade: nil)
+need_enrollment.each do |enrollment|
+	puts enrollment.student.id
+end
+need_student=MentorEnrollmentAssignment.where(enrollment_id:[73, 76])
+need_student.each do|mentor_enrollment_assignment|
+	puts mentor_enrollment_assignment.mentor.email
+end
