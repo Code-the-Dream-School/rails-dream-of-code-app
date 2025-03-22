@@ -1,0 +1,29 @@
+# Question 1
+
+# 1. Find Spring 2025 Trimester:
+spring_trimester = Trimester.find_by(year: '2025', term: 'Spring')
+
+# 2. Find Intro coding class:
+intro_class = CodingClass.find_by(title: 'Intro to Programming')
+
+# 3. Find Intro class/Spring Trimester:
+Course.find_by(coding_class_id: intro_class.id, trimester_id: spring_trimester.id)
+
+# 4. Find all enrollments for that class: 
+Enrollment.where(course_id: intro_course.id)
+
+# 5. Print student ID and Email for each:
+enrollments.each do |enrollment|
+    puts "#{enrollment.student_id}, #{enrollment.student.email}"
+  end
+
+# Example output:
+# 41, tracie_ruecker@jones.example
+# Student Load (0.1ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 42 LIMIT 1 /*application='DocRails'*/
+# 42, mohamed.rempel@kassulke-gislason.example
+# Student Load (0.0ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 43 LIMIT 1 /*application='DocRails'*/
+# 43, orlando_denesik@swaniawski.test
+# Student Load (0.0ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 44 LIMIT 1 /*application='DocRails'*/
+# 44, terrance@kozey.test
+# Student Load (0.0ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 45 LIMIT 1 /*application='DocRails'*/
+# 45, emmett@daniel.example
